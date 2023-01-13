@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">22_10_CDAN</string>
+    <string name="like">Like</string>
+    <string name="dislike">Dislike</string>
+    <string name="complement">Complement :</string>
+    <string name="write_name_here">Write name here</string>
+    <string name="cancel">Cancel</string>
+    <string name="validate">Validate</string>
+</resources>
