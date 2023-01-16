@@ -21,6 +21,7 @@ val SDF = SimpleDateFormat("dd/MM/yyyy HH:mm")
 class MainActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener {
 
     //Créer l'IHM. Lazy création à la 1er utilisation
+    //Attention à bien mettre le setContentView(binding.root) dans le onCreate
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     //Data
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener {
             binding.iv.setImageResource(R.drawable.ic_baseline_delete_forever_24)
         }
     }
+
 
     //Callback de la création de menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
