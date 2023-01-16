@@ -14,7 +14,6 @@ class RandomName {
     private var lastSend = ""
 
     fun add(s: String) =  if(s.isNotBlank() && s !in list)  list.add(s) else false
-    fun add2(s: String) =  list[]
 
     fun next() = list.random()
 
@@ -76,7 +75,7 @@ class StudentBean(val name : String) {
 
 class CarBean (var marque : String, var model : String, var couleur : String) {
     var at : String?  = null
-    
+
 }
 
 class CarBean2 {
