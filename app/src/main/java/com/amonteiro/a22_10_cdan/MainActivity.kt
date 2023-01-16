@@ -1,6 +1,7 @@
 package com.amonteiro.a22_10_cdan
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
@@ -62,6 +63,10 @@ class MainActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener {
         menu.add(0, MENU_ITEM_TP, 0, "TimePicker")
         menu.add(0, MENU_ITEM_DP, 0, "DatePicker")
         menu.add(0, MENU_ITEM_AD, 0, "AlertDialog")
+
+        //88 utilisé pour identifier le menu dans onOptionsItemSelected
+        menu.add(0, 88, 0, "Météo 2")
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -73,6 +78,11 @@ class MainActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener {
             //C'est donc la classe courante (MainActivity) qui implémente l'interface de gestion du TimePicker (TimePickerDialog.OnTimeSetListener) qui génère la
             // méthode onTimeSet
             TimePickerDialog(this, this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
+        }
+        else if(item.itemId == 88) {
+            //lance un écran
+            val intent = Intent(this, WeatherActivity::class.java)
+            startActivity(intent)
         }
 
         return super.onOptionsItemSelected(item)
