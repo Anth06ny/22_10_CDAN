@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.amonteiro.a22_10_cdan.databinding.ActivityWeatherBinding
-import kotlin.concurrent.thread
 
 class WeatherActivity : AppCompatActivity() {
 
@@ -18,33 +17,32 @@ class WeatherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        refreshScreen()
-
+        //Abonnement au live data
+        observe()
 
         binding.btLoad.setOnClickListener {
+            model.loadData("Toulouse")
+        }
+    }
 
-            //Affiche la progressBar
-            binding.progressBar.isVisible = true
-
-            thread {
-                model.loadData("Toulouse")
-                runOnUiThread {
-                    refreshScreen()
-                    binding.progressBar.isVisible = false
-                }
+    fun observe() {
+        //Chaque fois qu'on fait un postValue déclanche l'observer
+        //Idem à l'abonnement de l'observation
+        model.errorMessage.observe(this) {
+            if (it.isNotBlank()) {
+                binding.tvError.text = it
+                binding.tvError.isVisible = true
+            } else {
+                binding.tvError.isVisible = false
             }
         }
-    }
 
-    fun refreshScreen() {
-        binding.tvData.text = "Il fait ${model.data?.main?.temp ?: "-"}° à ${model.data?.name ?: "-"}"
+        model.data.observe(this) {
+            binding.tvData.text = "Il fait ${it?.main?.temp ?: "-"}° à ${it?.name ?: "-"}"
+        }
 
-        if (model.errorMessage.isNotBlank()) {
-            binding.tvError.text = model.errorMessage
-            binding.tvError.isVisible = true
-        } else {
-            binding.tvError.isVisible = false
+        model.runInProgress.observe(this) {
+            binding.progressBar.isVisible = it
         }
     }
-
 }
