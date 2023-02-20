@@ -16,12 +16,23 @@ class WeatherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+
         binding.btLoad.setOnClickListener {
 
             thread {
-                val data = RequestUtils.loadWeather("Toulouse")
-                runOnUiThread {
-                    binding.tvData.text = "Il fait ${data.main.temp}° à ${data.name}"
+
+                try {
+
+                    val data = RequestUtils.loadWeather("Toulouse")
+                    runOnUiThread {
+                        binding.tvData.text = "Il fait ${data.main.temp}° à ${data.name}"
+                    }
+                }
+                catch(e:Exception) {
+                    e.printStackTrace()
+                    runOnUiThread {
+                        binding.tvData.text = "Une erreur est survenue :  ${e.message}"
+                    }
                 }
             }
             binding.tvData.text = "Chargement en cours..."
